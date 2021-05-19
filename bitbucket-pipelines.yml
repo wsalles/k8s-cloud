@@ -1,0 +1,43 @@
+image: wsalles/iac-cli:latest
+
+pipelines:
+  default:
+    - step:
+        name: 'AWS Deployment'
+        deployment: development
+        condition:
+              changesets:
+                 includePaths:
+                   - "aws/**"
+        script:
+          - cd aws
+          - make dev create-workspace
+          - terraform apply -auto-approve
+    - step:
+        name: 'Kubernetes config'
+        deployment: development
+        # trigger: 'manual'
+        condition:
+              changesets:
+                 includePaths:
+                   - "kubernetes/ebs/**"
+                   - "kubernetes/metric-server/**"
+                   - "kubernetes/traefik/**"
+        script:
+          - cd kubernetes
+          - make context-config
+          - kubectl apply -f ebs/
+          - kubectl apply -k metric-server/
+          - kubectl apply -k traefik/
+    - step:
+        name: 'Kubernetes Deployment'
+        deployment: development
+        trigger: 'manual'
+        condition:
+              changesets:
+                 includePaths:
+                   - "kubernetes/file-transfer/**"
+        script:
+          - cd kubernetes
+          - make context-config
+          - make deploy
