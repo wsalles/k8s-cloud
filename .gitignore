@@ -1,0 +1,40 @@
+# Terraform
+example.tf
+terraform.tfplan
+terraform.tfstate
+./*.tfstate
+**/.terraform/
+tfplan.out
+plan.tfout
+
+# Test exclusions
+*.test
+!command/test-fixtures/**/*.tfstate
+!command/test-fixtures/**/.terraform/
+
+# MacOSX
+.DS_Store
+
+# Projects
+bin/
+modules-dev/
+/pkg/
+content/
+
+# Others
+.vagrant/
+*.bak
+*.bkp
+*.backup
+.*.swp
+*.dll
+*.exe
+*.log
+*~
+.idea
+*.iml
+*.iml
+node_modules/
+*.zip
+*.gzip
+*.7z
