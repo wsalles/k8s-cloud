@@ -4,7 +4,6 @@ pipelines:
   default:
     - step:
         name: 'AWS Deployment'
-        deployment: staging
         condition:
               changesets:
                  includePaths:
@@ -15,7 +14,6 @@ pipelines:
           - terraform apply -auto-approve
     - step:
         name: 'Kubernetes config'
-        deployment: staging
         # trigger: 'manual'
         condition:
               changesets:
@@ -31,7 +29,6 @@ pipelines:
           - kubectl apply -k traefik/
     - step:
         name: 'Kubernetes Deployment'
-        deployment: staging
         trigger: 'manual'
         condition:
               changesets:
