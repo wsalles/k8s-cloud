@@ -1,12 +1,40 @@
-terraform {
-  required_version = "v0.15.3"
+module "network" {
+  source = "./modules/network"
 
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "3.40.0"
-    }
-  }
+  cluster_name = var.cluster_name
+  aws_region   = var.aws_region
+}
 
-  //  backend "s3" {}
+module "master" {
+  source = "./modules/master"
+
+  cluster_name    = var.cluster_name
+  cluster_version = var.cluster_version
+  aws_region      = var.aws_region
+
+  cluster_vpc              = module.network.cluster_vpc
+  private_subnet_primary   = module.network.private_subnet_primary
+  private_subnet_secondary = module.network.private_subnet_secondary
+}
+
+module "nodes" {
+  source = "./modules/nodes"
+
+  cluster_name    = var.cluster_name
+  aws_region      = var.aws_region
+  cluster_version = var.cluster_version
+
+  cluster_vpc              = module.network.cluster_vpc
+  private_subnet_primary   = module.network.private_subnet_primary
+  private_subnet_secondary = module.network.private_subnet_secondary
+
+  eks_cluster    = module.master.eks_cluster
+  eks_cluster_sg = module.master.security_group
+
+  nodes_instances_sizes = var.nodes_instances_sizes
+  auto_scale_options    = var.auto_scale_options
+
+  auto_scale_cpu = var.auto_scale_cpu
+
+  ebs_tags = var.ebs_tags
 }

@@ -20,5 +20,4 @@ resource "aws_eks_node_group" "cluster" {
   tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "owned"
   }
-
 }

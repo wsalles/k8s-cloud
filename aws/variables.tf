@@ -12,8 +12,8 @@ variable "cluster_name" {
   default = "k8s-cloud"
 }
 
-variable "k8s_version" {
-  default = "1.19"
+variable "cluster_version" {
+  default = "1.25"
 }
 
 variable "nodes_instances_sizes" {

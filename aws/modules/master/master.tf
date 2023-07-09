@@ -1,7 +1,7 @@
 resource "aws_eks_cluster" "eks_cluster" {
 
   name     = var.cluster_name
-  version  = var.k8s_version
+  version  = var.cluster_version
   role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {
@@ -20,5 +20,4 @@ resource "aws_eks_cluster" "eks_cluster" {
   tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
-
 }

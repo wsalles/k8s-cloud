@@ -57,5 +57,4 @@ resource "aws_cloudwatch_metric_alarm" "cpu_down" {
   }
 
   alarm_actions = [aws_autoscaling_policy.cpu_down.arn]
-
 }

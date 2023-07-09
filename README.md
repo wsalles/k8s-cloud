@@ -1,6 +1,7 @@
 # K8S Cloud
 
-![terraform-v0.15.3](https://img.shields.io/badge/terraform-v0.15.3-blueviolet?style=flat-square)
+![terraform-v1.5.2](https://img.shields.io/badge/terraform-v1.5.2-blueviolet?style=flat-square)
+[![ci](https://github.com/wsalles/k8s-cloud/actions/workflows/ci.yml/badge.svg)](https://github.com/wsalles/k8s-cloud/actions/workflows/ci.yml)
 
 ![](cover.png)
 
